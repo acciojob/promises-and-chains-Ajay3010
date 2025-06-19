@@ -4,7 +4,7 @@ document.getElementById("voteForm").addEventListener("submit", function (e) {
   const name = document.getElementById("name").value.trim();
   const age = document.getElementById("age").value.trim();
 
-  // Validate inputs
+  // Validation: Empty fields
   if (!name || !age) {
     alert("Please enter valid details.");
     return;
@@ -12,7 +12,6 @@ document.getElementById("voteForm").addEventListener("submit", function (e) {
 
   const ageNumber = parseInt(age);
 
-  // Promise to check eligibility
   const checkVotingEligibility = new Promise((resolve, reject) => {
     setTimeout(() => {
       if (ageNumber >= 18) {
@@ -20,10 +19,9 @@ document.getElementById("voteForm").addEventListener("submit", function (e) {
       } else {
         reject();
       }
-    }, 4000); // 4 seconds delay
+    }, 4000); // 4-second delay
   });
 
-  // Handle the result
   checkVotingEligibility
     .then(() => {
       alert(`Welcome, ${name}. You can vote.`);
