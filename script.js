@@ -1,20 +1,21 @@
-document.getElementById("voteForm").addEventListener("submit", function (event) {
-  event.preventDefault(); // Prevent page reload
+document.getElementById("voteForm").addEventListener("submit", function (e) {
+  e.preventDefault(); // Prevent form reload
 
   const name = document.getElementById("name").value.trim();
   const age = document.getElementById("age").value.trim();
 
-  if (name === "" || age === "") {
+  // Validate inputs
+  if (!name || !age) {
     alert("Please enter valid details.");
     return;
   }
 
-  // Convert age to number
-  const ageNumber = Number(age);
+  const ageNumber = parseInt(age);
 
-  const votePromise = new Promise((resolve, reject) => {
+  // Promise to check eligibility
+  const checkVotingEligibility = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (ageNumber > 18) {
+      if (ageNumber >= 18) {
         resolve();
       } else {
         reject();
@@ -22,7 +23,8 @@ document.getElementById("voteForm").addEventListener("submit", function (event) 
     }, 4000); // 4 seconds delay
   });
 
-  votePromise
+  // Handle the result
+  checkVotingEligibility
     .then(() => {
       alert(`Welcome, ${name}. You can vote.`);
     })
