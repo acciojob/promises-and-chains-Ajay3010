@@ -1,20 +1,19 @@
 document.getElementById("voteForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // Prevent form reload
+  e.preventDefault(); // Prevent page refresh
 
   const name = document.getElementById("name").value.trim();
   const age = document.getElementById("age").value.trim();
 
-  // Validation: Empty fields
   if (!name || !age) {
     alert("Please enter valid details.");
     return;
   }
 
-  const ageNumber = parseInt(age);
+  const ageNum = parseInt(age);
 
-  const checkVotingEligibility = new Promise((resolve, reject) => {
+  const checkEligibility = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (ageNumber >= 18) {
+      if (ageNum >= 18) {
         resolve();
       } else {
         reject();
@@ -22,7 +21,7 @@ document.getElementById("voteForm").addEventListener("submit", function (e) {
     }, 4000); // 4-second delay
   });
 
-  checkVotingEligibility
+  checkEligibility
     .then(() => {
       alert(`Welcome, ${name}. You can vote.`);
     })
