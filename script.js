@@ -1,20 +1,20 @@
-//your JS code here. If required.
-document.getElementById("voteForm").addEventListener("submit", function (e) {
-  e.preventDefault(); // Prevent form reload
+document.getElementById("voteForm").addEventListener("submit", function (event) {
+  event.preventDefault(); // Prevent page reload
 
   const name = document.getElementById("name").value.trim();
   const age = document.getElementById("age").value.trim();
 
-  if (!name || !age) {
+  if (name === "" || age === "") {
     alert("Please enter valid details.");
     return;
   }
 
-  const ageNumber = parseInt(age);
+  // Convert age to number
+  const ageNumber = Number(age);
 
-  const checkVotingEligibility = new Promise((resolve, reject) => {
+  const votePromise = new Promise((resolve, reject) => {
     setTimeout(() => {
-      if (ageNumber >= 18) {
+      if (ageNumber > 18) {
         resolve();
       } else {
         reject();
@@ -22,7 +22,7 @@ document.getElementById("voteForm").addEventListener("submit", function (e) {
     }, 4000); // 4 seconds delay
   });
 
-  checkVotingEligibility
+  votePromise
     .then(() => {
       alert(`Welcome, ${name}. You can vote.`);
     })
